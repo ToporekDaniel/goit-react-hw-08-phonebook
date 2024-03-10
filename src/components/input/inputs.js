@@ -32,10 +32,50 @@ export const TelInput = ({ onChange }) => {
   );
 };
 
+export const EmailInput = ({ onChange }) => {
+  return (
+    <label>
+      Email
+      <input
+        onChange={onChange}
+        type="email"
+        name="email"
+        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        title="Email must be a valid email address. For example, example@example.com"
+        required
+      />
+    </label>
+  );
+};
+
+export const PasswordInput = ({ onChange }) => {
+  return (
+    <label>
+      Password
+      <input
+        onChange={onChange}
+        type="text"
+        name="password"
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+        title="Password must contain at least one uppercase and lowercase letter, one digit, and be at least 8 characters long."
+        required
+      />
+    </label>
+  );
+};
+
 NameInput.propTypes = {
   onChange: PropTypes.func,
 };
 
 TelInput.propTypes = {
+  onChange: PropTypes.func,
+};
+
+EmailInput.propTypes = {
+  onChange: PropTypes.func,
+};
+
+PasswordInput.propTypes = {
   onChange: PropTypes.func,
 };
