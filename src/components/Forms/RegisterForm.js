@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewUser } from '../../redux/userOperations';
-import { getUser } from '../../redux/selectors';
+import { getUserData } from '../../redux/selectors';
 
 const Form = styled.form`
   display: flex;
@@ -27,7 +27,7 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const user = useSelector(getUser);
+  const user = useSelector(getUserData);
 
   const handleNameChange = event => {
     setName(event.target.value);
@@ -63,10 +63,12 @@ export const RegisterForm = () => {
     event.target.reset();
   };
 
+  // sprawdzanie utworzonego usera
   useEffect(() => {
-    console.log('Użytkownik został pomyślnie utworzony!', user.user);
-    console.log('Użytkownik został pomyślnie utworzony!', user.token);
-  }, [user]); // Dodano user do zależności useEffect
+    console.log('User:', user.user);
+    console.log('Token', user.token);
+    console.log(user);
+  }, [user]);
 
   return (
     <section>
