@@ -1,6 +1,9 @@
 import { NameInput, EmailInput, PasswordInput } from 'components/input/inputs';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewUser } from '../../redux/userOperations';
+import { getUser } from '../../redux/selectors';
 
 const Form = styled.form`
   display: flex;
@@ -23,6 +26,8 @@ export const RegisterForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const user = useSelector(getUser);
 
   const handleNameChange = event => {
     setName(event.target.value);
@@ -36,15 +41,32 @@ export const RegisterForm = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     console.log(`Name: ${name}, Email: ${email}, Password: ${password}`);
+    const newUser = {
+      name,
+      email,
+      password,
+    };
+
+    try {
+      await dispatch(createNewUser(newUser));
+      console.log('Użytkownik został pomyślnie utworzony!');
+    } catch (error) {
+      console.error('Błąd podczas tworzenia użytkownika:', error);
+    }
 
     setName('');
     setEmail('');
     setPassword('');
     event.target.reset();
   };
+
+  useEffect(() => {
+    console.log('Użytkownik został pomyślnie utworzony!', user.user);
+    console.log('Użytkownik został pomyślnie utworzony!', user.token);
+  }, [user]); // Dodano user do zależności useEffect
 
   return (
     <section>

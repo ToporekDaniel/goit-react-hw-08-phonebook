@@ -7,7 +7,7 @@ import {
   addContact,
   deleteContact,
   fetchContacts,
-} from '../redux/asyncOperations';
+} from '../redux/contactsOperations';
 import { setFilter } from '../redux/filterSlice';
 import { getContacts, getFilteredContacts } from '../redux/selectors';
 
