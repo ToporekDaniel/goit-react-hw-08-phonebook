@@ -1,4 +1,7 @@
+import { UserMenu } from 'components/UserMenu/UserMenu';
+import { useSelector } from 'react-redux';
 import { NavLink as RouterNavLink, Outlet } from 'react-router-dom';
+import { getUserToken } from '../../redux/selectors';
 import styled from 'styled-components';
 
 //stały header na stronie
@@ -23,13 +26,23 @@ const NavLink = styled(RouterNavLink)`
 `;
 
 export const Navigation = () => {
+  const userToken = useSelector(getUserToken);
+
   return (
     <>
       <header>
         <Nav>
-          <NavLink to="register">Register</NavLink>
-          <NavLink to="login">Login</NavLink>
-          <NavLink to="contacts">Contacts</NavLink>
+          {userToken ? (
+            <>
+              <NavLink to="contacts">Contacts</NavLink>
+              <UserMenu />
+            </>
+          ) : (
+            <>
+              <NavLink to="register">Register</NavLink>
+              <NavLink to="login">Login</NavLink>
+            </>
+          )}
         </Nav>
       </header>
       <Outlet />

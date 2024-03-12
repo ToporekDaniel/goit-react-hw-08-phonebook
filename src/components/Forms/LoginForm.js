@@ -1,6 +1,9 @@
 import { EmailInput, PasswordInput } from 'components/input/inputs';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserData } from '../../redux/selectors';
+import { login } from '../../redux/userOperations';
 
 const Form = styled.form`
   display: flex;
@@ -22,6 +25,8 @@ const Input = styled.input`
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const user = useSelector(getUserData);
 
   const handleEmailChange = event => {
     setEmail(event.target.value);
@@ -31,14 +36,32 @@ export const LoginForm = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     console.log(`Email: ${email}, Password: ${password}`);
+
+    const loginUser = {
+      email,
+      password,
+    };
+
+    try {
+      await dispatch(login(loginUser));
+      console.log('Użytkownik został pomyślnie zalogowany!');
+    } catch (error) {
+      console.error('Błąd podczas logowania użytkownika:', error);
+    }
 
     setEmail('');
     setPassword('');
     event.target.reset();
   };
+
+  useEffect(() => {
+    console.log('User:', user.user);
+    console.log('Token', user.token);
+    console.log(user);
+  }, [user]);
 
   return (
     <section>
