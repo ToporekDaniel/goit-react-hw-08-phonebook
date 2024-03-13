@@ -9,7 +9,7 @@ export const UserMenu = () => {
   const handleLogout = async event => {
     try {
       await dispatch(logout());
-      console.log('Użytkownik został pomyślnie utworzony!');
+      console.log('Użytkownik został pomyślnie wylogowany!');
     } catch (error) {
       console.error('Błąd podczas tworzenia użytkownika:', error);
     }

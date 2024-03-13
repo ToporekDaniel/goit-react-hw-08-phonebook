@@ -1,12 +1,27 @@
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact, fetchContacts } from '../../redux/contactsOperations';
+import { useEffect } from 'react';
+import { getFilteredContacts } from '../../redux/selectors';
 
-export const ContactList = ({ con, onDelete }) => {
+export const ContactList = () => {
+  const dispatch = useDispatch();
+  const filteredContacts = useSelector(getFilteredContacts);
+
+  const handleDelete = id => {
+    dispatch(deleteContact(id));
+  };
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   return (
     <ul>
-      {con.map(contact => (
+      {filteredContacts.map(contact => (
         <li key={contact.id}>
           {contact.name}: {contact.number}
-          <button onClick={() => onDelete(contact.id)}>Delete</button>
+          <button onClick={() => handleDelete(contact.id)}>Delete</button>
         </li>
       ))}
     </ul>
