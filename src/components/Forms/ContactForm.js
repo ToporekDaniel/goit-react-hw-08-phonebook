@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NameInput, TelInput } from '../input/inputs';
+import { NameInput, TelInput } from '../Inputs/Inputs';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addContact } from '../../redux/contactsOperations';

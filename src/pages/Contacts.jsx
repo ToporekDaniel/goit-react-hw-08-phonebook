@@ -1,13 +1,13 @@
 import { ContactForm } from 'components/Forms/ContactForm';
-import { Filter } from 'components/filter/filter';
-import { ContactList } from 'components/list/list';
+import { Filter } from 'components/Filter/Filter';
+import { ContactList } from 'components/List/List';
 
 export const Contacts = () => {
   return (
     <main>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
       <ContactForm />
-      <h3>Contacts</h3>
+      <h2>Contacts</h2>
       <Filter />
       <ContactList />
     </main>

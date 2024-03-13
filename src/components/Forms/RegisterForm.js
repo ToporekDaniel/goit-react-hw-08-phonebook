@@ -1,9 +1,8 @@
-import { NameInput, EmailInput, PasswordInput } from 'components/input/inputs';
+import { NameInput, EmailInput, PasswordInput } from 'components/Inputs/Inputs';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { createNewUser } from '../../redux/userOperations';
-import { getUserData } from '../../redux/selectors';
 
 const Form = styled.form`
   display: flex;
@@ -27,7 +26,6 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const user = useSelector(getUserData);
 
   const handleNameChange = event => {
     setName(event.target.value);
@@ -43,7 +41,6 @@ export const RegisterForm = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(`Name: ${name}, Email: ${email}, Password: ${password}`);
     const newUser = {
       name,
       email,
@@ -62,13 +59,6 @@ export const RegisterForm = () => {
     setPassword('');
     event.target.reset();
   };
-
-  // sprawdzanie utworzonego usera
-  useEffect(() => {
-    console.log('User:', user.user);
-    console.log('Token', user.token);
-    console.log(user);
-  }, [user]);
 
   return (
     <section>

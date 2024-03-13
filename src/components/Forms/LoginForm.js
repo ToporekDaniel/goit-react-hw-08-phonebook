@@ -1,8 +1,7 @@
-import { EmailInput, PasswordInput } from 'components/input/inputs';
+import { EmailInput, PasswordInput } from 'components/Inputs/Inputs';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserData } from '../../redux/selectors';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { login } from '../../redux/userOperations';
 
 const Form = styled.form`
@@ -26,7 +25,6 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const user = useSelector(getUserData);
 
   const handleEmailChange = event => {
     setEmail(event.target.value);
@@ -38,7 +36,6 @@ export const LoginForm = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
 
     const loginUser = {
       email,
@@ -56,12 +53,6 @@ export const LoginForm = () => {
     setPassword('');
     event.target.reset();
   };
-
-  useEffect(() => {
-    console.log('User:', user.user);
-    console.log('Token', user.token);
-    console.log(user);
-  }, [user]);
 
   return (
     <section>

@@ -32,6 +32,8 @@ export const Navigation = () => {
     <>
       <header>
         <Nav>
+          <NavLink to="home">Home</NavLink>
+
           {userToken ? (
             <>
               <NavLink to="contacts">Contacts</NavLink>
