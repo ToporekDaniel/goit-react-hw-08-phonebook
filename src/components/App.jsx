@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navigation } from './Navigation/Navigation';
 import { useDispatch } from 'react-redux';
-import { lazy, useEffect } from 'react';
+import { useEffect } from 'react';
 import { refreshUser } from '../redux/userOperations';
 import { useUser } from '../hooks/hook';
 import { RestrictedRoute } from 'hooks/RestrictedRoute';
