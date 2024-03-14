@@ -1,7 +1,7 @@
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { NavLink as RouterNavLink, Outlet } from 'react-router-dom';
-import { getUserToken } from '../../redux/selectors';
+import { getIsLoggedIn } from '../../redux/selectors';
 import styled from 'styled-components';
 
 //stały header na stronie
@@ -26,15 +26,15 @@ const NavLink = styled(RouterNavLink)`
 `;
 
 export const Navigation = () => {
-  const userToken = useSelector(getUserToken);
+  const userIsLoggedIn = useSelector(getIsLoggedIn);
 
   return (
     <>
       <header>
         <Nav>
-          <NavLink to="home">Home</NavLink>
+          <NavLink to="/">Home</NavLink>
 
-          {userToken ? (
+          {userIsLoggedIn ? (
             <>
               <NavLink to="contacts">Contacts</NavLink>
               <UserMenu />

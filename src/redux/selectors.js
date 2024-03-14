@@ -16,8 +16,11 @@ export const getFilteredContacts = createSelector(
 );
 
 export const getUserData = state => state.user;
+export const getUser = state => state.user.user;
 export const getUserName = state => state.user.user.name;
-
 export const getUserEmail = state => state.user.user.email;
 
 export const getUserToken = state => state.user.token;
+
+export const getIsLoggedIn = state => state.user.isLoggedIn;
+export const getIsRefreshing = state => state.user.isRefreshing;

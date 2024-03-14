@@ -1,15 +1,19 @@
 import { logout } from '../../redux/userOperations';
-import { getUserData } from '../../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useUser } from 'hooks/hook';
+import { getUserEmail } from '../../redux/selectors';
 
 export const UserMenu = () => {
-  const user = useSelector(getUserData);
   const dispatch = useDispatch();
+
+  const email = useSelector(getUserEmail);
 
   const handleLogout = async event => {
     try {
       await dispatch(logout());
       console.log('Użytkownik został pomyślnie wylogowany!');
+      console.log(email);
     } catch (error) {
       console.error('Błąd podczas tworzenia użytkownika:', error);
     }
@@ -18,7 +22,7 @@ export const UserMenu = () => {
   return (
     <div>
       <div>
-        <p>{user.user.name}</p>
+        {email && <p>{email}</p>}
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
