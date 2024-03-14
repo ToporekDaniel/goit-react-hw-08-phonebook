@@ -1,7 +1,5 @@
 import { logout } from '../../redux/userOperations';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useUser } from 'hooks/hook';
 import { getUserEmail } from '../../redux/selectors';
 
 export const UserMenu = () => {
