@@ -1,6 +1,8 @@
-import { NameInput, EmailInput, PasswordInput } from 'components/input/inputs';
+import { NameInput, EmailInput, PasswordInput } from 'components/Inputs/Inputs';
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createNewUser } from '../../redux/userOperations';
 
 const Form = styled.form`
   display: flex;
@@ -23,6 +25,7 @@ export const RegisterForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const handleNameChange = event => {
     setName(event.target.value);
@@ -36,9 +39,20 @@ export const RegisterForm = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    console.log(`Name: ${name}, Email: ${email}, Password: ${password}`);
+    const newUser = {
+      name,
+      email,
+      password,
+    };
+
+    try {
+      await dispatch(createNewUser(newUser));
+      console.log('Użytkownik został pomyślnie utworzony!');
+    } catch (error) {
+      console.error('Błąd podczas tworzenia użytkownika:', error);
+    }
 
     setName('');
     setEmail('');

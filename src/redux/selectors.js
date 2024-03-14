@@ -14,3 +14,10 @@ export const getFilteredContacts = createSelector(
     );
   }
 );
+
+export const getUserData = state => state.user;
+export const getUserName = state => state.user.user.name;
+
+export const getUserEmail = state => state.user.user.email;
+
+export const getUserToken = state => state.user.token;

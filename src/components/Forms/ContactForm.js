@@ -1,7 +1,10 @@
 import styled from 'styled-components';
-import { NameInput, TelInput } from '../input/inputs';
+import { NameInput, TelInput } from '../Inputs/Inputs';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { addContact } from '../../redux/contactsOperations';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from '../../redux/selectors';
 
 const SubmitButton = styled.button`
   width: 10rem;
@@ -12,7 +15,10 @@ const SubmitButton = styled.button`
 
 const Form = styled.form``;
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -27,7 +33,15 @@ export const ContactForm = ({ onSubmit }) => {
   const handleSubmit = event => {
     event.preventDefault();
 
-    onSubmit({ name, number });
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+    dispatch(addContact({ name, number }));
     event.target.reset();
   };
 

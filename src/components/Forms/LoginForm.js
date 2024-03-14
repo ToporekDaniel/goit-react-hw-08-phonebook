@@ -1,6 +1,8 @@
-import { EmailInput, PasswordInput } from 'components/input/inputs';
+import { EmailInput, PasswordInput } from 'components/Inputs/Inputs';
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/userOperations';
 
 const Form = styled.form`
   display: flex;
@@ -22,6 +24,7 @@ const Input = styled.input`
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const handleEmailChange = event => {
     setEmail(event.target.value);
@@ -31,9 +34,20 @@ export const LoginForm = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
+
+    const loginUser = {
+      email,
+      password,
+    };
+
+    try {
+      await dispatch(login(loginUser));
+      console.log('Użytkownik został pomyślnie zalogowany!');
+    } catch (error) {
+      console.error('Błąd podczas logowania użytkownika:', error);
+    }
 
     setEmail('');
     setPassword('');

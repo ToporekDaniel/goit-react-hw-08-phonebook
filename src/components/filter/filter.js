@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { setFilter } from '../../redux/filterSlice';
 
-export const Filter = ({ onFilterChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+
   const handleInputChange = event => {
-    const inputValue = event.target.value.toLowerCase();
-    onFilterChange(inputValue);
+    const filterValue = event.target.value.toLowerCase();
+    dispatch(setFilter(filterValue));
   };
+
   return (
     <label>
       Find contacts by name
