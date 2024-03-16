@@ -11,7 +11,6 @@ export const UserMenu = () => {
     try {
       await dispatch(logout());
       console.log('Użytkownik został pomyślnie wylogowany!');
-      console.log(email);
     } catch (error) {
       console.error('Błąd podczas tworzenia użytkownika:', error);
     }
