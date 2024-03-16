@@ -54,7 +54,7 @@ export const PasswordInput = ({ onChange }) => {
       Password
       <input
         onChange={onChange}
-        type="text"
+        type="password"
         name="password"
         pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
         title="Password must contain at least one uppercase and lowercase letter, one digit, and be at least 8 characters long."
