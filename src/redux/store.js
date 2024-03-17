@@ -21,11 +21,17 @@ const userPersistConfig = {
   whitelist: ['token'],
 };
 
+const darkPersistConfig = {
+  key: 'darkMode',
+  storage,
+  whitelist: ['isDarkMode'],
+};
+
 export const store = configureStore({
   reducer: {
     contacts: contactsReducer,
     filters: filtersReducer,
-    darkMode: darkModeReducer,
+    darkMode: persistReducer(darkPersistConfig, darkModeReducer),
     user: persistReducer(userPersistConfig, userReducer),
   },
   middleware: getDefaultMiddleware =>
