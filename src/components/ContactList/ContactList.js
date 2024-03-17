@@ -1,11 +1,32 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact, fetchContacts } from '../../redux/contactsOperations';
+import {
+  deleteContact,
+  fetchContacts,
+} from '../../redux/contacts/contactsOperations';
 import { useEffect } from 'react';
 import { getFilteredContacts } from '../../redux/selectors';
 import Modal from 'components/EditModal/EditModal';
 import { EditForm } from 'components/Forms/EditForm';
+import styled from 'styled-components';
+import { NormalButton } from 'components/buttons/NormalButton';
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+`;
+
+const Th = styled.th`
+  padding: 10px;
+  text-align: left;
+`;
+
+const Td = styled.td`
+  border: 1px solid #ddd;
+  padding: 10px;
+`;
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -33,17 +54,31 @@ export const ContactList = () => {
 
   return (
     <div>
-      <ul>
-        {filteredContacts.map(contact => (
-          <li key={contact.id}>
-            {contact.name}: {contact.number}
-            <button onClick={() => handleDelete(contact.id)}>
-              Delete Contact
-            </button>
-            <button onClick={() => handleEdit(contact.id)}>Edit Contact</button>
-          </li>
-        ))}
-      </ul>
+      <Table>
+        <thead>
+          <tr>
+            <Th>Name</Th>
+            <Th>Number</Th>
+            <Th>Action</Th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredContacts.map(contact => (
+            <tr key={contact.id}>
+              <Td>{contact.name}</Td>
+              <Td>{contact.number}</Td>
+              <Td>
+                <NormalButton onClick={() => handleDelete(contact.id)}>
+                  Delete Contact
+                </NormalButton>
+                <NormalButton onClick={() => handleEdit(contact.id)}>
+                  Edit Contact
+                </NormalButton>
+              </Td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
       <Modal isOpen={editModalOpen} closeModal={() => setEditModalOpen(false)}>
         <EditForm
           originalContact={filteredContacts.find(

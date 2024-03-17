@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navigation } from './Navigation/Navigation';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { refreshUser } from '../redux/userOperations';
+import { refreshUser } from '../redux/user/userOperations';
 import { useUser } from '../hooks/hook';
 import { RestrictedRoute } from 'hooks/RestrictedRoute';
 import { PrivateRoute } from 'hooks/PrivateRoute';

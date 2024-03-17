@@ -1,10 +1,17 @@
-import { logout } from '../../redux/userOperations';
+import { logout } from '../../redux/user/userOperations';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserEmail } from '../../redux/selectors';
+import styled from 'styled-components';
+import { NormalButton } from 'components/buttons/NormalButton';
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
-
   const email = useSelector(getUserEmail);
 
   const handleLogout = async event => {
@@ -17,11 +24,9 @@ export const UserMenu = () => {
   };
 
   return (
-    <div>
-      <div>
-        {email && <p>{email}</p>}
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-    </div>
+    <Container>
+      {email && <p>{email}</p>}
+      <NormalButton onClick={handleLogout}>Logout</NormalButton>
+    </Container>
   );
 };

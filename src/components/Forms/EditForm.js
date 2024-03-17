@@ -1,19 +1,10 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { NameInput, TelInput } from '../Inputs/Inputs';
 import PropTypes from 'prop-types';
-import { editContact } from '../../redux/contactsOperations';
+import { editContact } from '../../redux/contacts/contactsOperations';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from '../../redux/selectors';
-
-const SubmitButton = styled.button`
-  width: 10rem;
-  height: 3rem;
-  background-color: white;
-  border-radius: 0.5rem;
-`;
-
-const Form = styled.form``;
+import { ContactButton } from 'components/buttons/ContactButton';
 
 export const EditForm = ({ contactId, closeModal, originalContact }) => {
   const dispatch = useDispatch();
@@ -54,14 +45,13 @@ export const EditForm = ({ contactId, closeModal, originalContact }) => {
 
   return (
     <>
-      <p>Original Name: {originalContact.name}</p>
-      <p>Original Number: {originalContact.number}</p>
-
-      <Form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <p>Original Name: {originalContact.name}</p>
         <NameInput onChange={handleNameChange} />
+        <p>Original Number: {originalContact.number}</p>
         <TelInput onChange={handleTelChange} />
-        <SubmitButton type="submit">Confirm Edit</SubmitButton>
-      </Form>
+        <ContactButton type="submit">Confirm Edit</ContactButton>
+      </form>
     </>
   );
 };

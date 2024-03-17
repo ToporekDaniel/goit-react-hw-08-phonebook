@@ -24,3 +24,5 @@ export const getUserToken = state => state.user.token;
 
 export const getIsLoggedIn = state => state.user.isLoggedIn;
 export const getIsRefreshing = state => state.user.isRefreshing;
+
+export const getDarkMode = state => state.darkMode.isDarkMode;

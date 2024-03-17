@@ -1,52 +1,100 @@
+import React from 'react';
 import { UserMenu } from 'components/UserMenu/UserMenu';
-import { useSelector } from 'react-redux';
-import { NavLink as RouterNavLink, Outlet } from 'react-router-dom';
-import { getIsLoggedIn } from '../../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, Outlet } from 'react-router-dom';
+import { getDarkMode, getIsLoggedIn } from '../../redux/selectors';
 import styled from 'styled-components';
+import { toggleDarkMode } from '../../redux/darkmode/actions';
+import { DarkModeStyles } from '../darkModeStyles';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-//stały header na stronie
+const Header = styled.header`
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+`;
 
 const Nav = styled.nav`
   display: flex;
   gap: 20px;
+  padding: 20px;
+  align-items: center;
 `;
 
-const NavLink = styled(RouterNavLink)`
+const StyledNavLink = styled(NavLink)`
   font-size: 20px;
   text-decoration: none;
-  color: black;
+  letter-spacing: 0;
+  color: ${({ isDarkMode }) => (isDarkMode ? 'white' : 'black')};
 
   &:hover {
-    color: blue;
+    color: ${({ isDarkMode }) => (isDarkMode ? 'green' : 'purple')};
   }
 
   &.active {
-    color: red;
+    color: ${({ isDarkMode }) => (isDarkMode ? 'red' : 'blue')};
   }
+`;
+const Spacer = styled.div`
+  margin-left: auto;
+`;
+
+const Switch = styled.button`
+  background-color: ${({ isDarkMode }) => (isDarkMode ? '#333' : '#f0f0f0')};
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 `;
 
 export const Navigation = () => {
   const userIsLoggedIn = useSelector(getIsLoggedIn);
+  const dispatch = useDispatch();
+  const isDarkMode = useSelector(getDarkMode);
+
+  const handleToggleDarkMode = () => {
+    dispatch(toggleDarkMode());
+  };
 
   return (
     <>
-      <header>
+      <DarkModeStyles isDarkMode={isDarkMode} />
+      <Header>
         <Nav>
-          <NavLink to="/">Home</NavLink>
+          <StyledNavLink to="/" isDarkMode={isDarkMode}>
+            Home
+          </StyledNavLink>
 
           {userIsLoggedIn ? (
             <>
-              <NavLink to="contacts">Contacts</NavLink>
-              <UserMenu />
+              <StyledNavLink to="contacts" isDarkMode={isDarkMode}>
+                Contacts
+              </StyledNavLink>
+              <Spacer>
+                <UserMenu />
+              </Spacer>
             </>
           ) : (
             <>
-              <NavLink to="register">Register</NavLink>
-              <NavLink to="login">Login</NavLink>
+              <StyledNavLink to="register" isDarkMode={isDarkMode}>
+                Register
+              </StyledNavLink>
+              <StyledNavLink to="login" isDarkMode={isDarkMode}>
+                Login
+              </StyledNavLink>
             </>
           )}
+          <Spacer>
+            <Switch isDarkMode={isDarkMode} onClick={handleToggleDarkMode}>
+              {isDarkMode ? (
+                <FontAwesomeIcon icon={faSun} style={{ color: 'yellow' }} />
+              ) : (
+                <FontAwesomeIcon icon={faMoon} style={{ color: 'darkblue' }} />
+              )}
+            </Switch>
+          </Spacer>
         </Nav>
-      </header>
+      </Header>
       <Outlet />
     </>
   );
