@@ -7,7 +7,7 @@ export const Contacts = () => {
     <main>
       <h1>Phonebook</h1>
       <ContactForm />
-      <h2>Contacts</h2>
+      <h2 style={{ marginTop: 30 }}>Contacts</h2>
       <Filter />
       <ContactList />
     </main>

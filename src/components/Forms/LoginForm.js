@@ -2,18 +2,8 @@ import { EmailInput, PasswordInput } from 'components/Inputs/Inputs';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/userOperations';
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-`;
+import { login } from '../../redux/user/userOperations';
+import { SubmitButton } from 'components/buttons/SubmitButton';
 
 const Input = styled.input`
   padding: 10px;
@@ -56,11 +46,11 @@ export const LoginForm = () => {
 
   return (
     <section>
-      <Form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <EmailInput as={Input} onChange={handleEmailChange} />
         <PasswordInput as={Input} onChange={handlePassChange} />
-        <button type="submit">Submit</button>
-      </Form>
+        <SubmitButton type="submit">Submit</SubmitButton>
+      </form>
     </section>
   );
 };

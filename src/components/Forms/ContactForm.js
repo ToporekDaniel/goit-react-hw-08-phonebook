@@ -2,18 +2,14 @@ import styled from 'styled-components';
 import { NameInput, TelInput } from '../Inputs/Inputs';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addContact } from '../../redux/contactsOperations';
+import { addContact } from '../../redux/contacts/contactsOperations';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from '../../redux/selectors';
+import { ContactButton } from 'components/buttons/ContactButton';
 
-const SubmitButton = styled.button`
-  width: 10rem;
-  height: 3rem;
-  background-color: white;
-  border-radius: 0.5rem;
+const Form = styled.form`
+  flex-direction: row;
 `;
-
-const Form = styled.form``;
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -49,7 +45,7 @@ export const ContactForm = () => {
     <Form onSubmit={handleSubmit}>
       <NameInput onChange={handleNameChange} />
       <TelInput onChange={handleTelChange} />
-      <SubmitButton type="submit">Add contact</SubmitButton>
+      <ContactButton type="submit">Add contact</ContactButton>
     </Form>
   );
 };
