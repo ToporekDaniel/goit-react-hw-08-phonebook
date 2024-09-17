@@ -1,7 +1,9 @@
+import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 import { filtersReducer } from './filterSlice';
 import { contactsReducer } from './contacts/contactsSlice';
 import { userReducer } from './user/userSlice';
+import { darkModeReducer } from './darkmode/reducers';
 import {
   persistStore,
   persistReducer,
@@ -12,8 +14,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { darkModeReducer } from './darkmode/reducers';
 
 const userPersistConfig = {
   key: 'user',
